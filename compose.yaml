@@ -1,0 +1,9 @@
+services:
+  k6:
+    image: grafana/k6
+    volumes:
+      - $PWD:/app
+    command:
+      - 'run'
+      - '/app/script.ts'
+    env_file: '.env'
