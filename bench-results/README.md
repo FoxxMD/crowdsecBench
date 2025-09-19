@@ -32,4 +32,11 @@ So, 50 requests/s over a duration of 30 seconds using [`bench.sh`](../bench.sh)
 * Kernel `6.1.0-38-amd64`
 * 10core VM on Promxox
   
-![rpi5 results](plot_13400.png)
+![it-13400 results](plot_13400.png)
+
+### 5700x
+
+* Arch
+* Kernel `6.14.7-arch2-1`
+  
+![5700x results](plot_5700x.png)
