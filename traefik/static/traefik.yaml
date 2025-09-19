@@ -17,3 +17,6 @@ entryPoints:
     address: :80
 log:
   level: info
+api:
+  dashboard: true
+  insecure: true

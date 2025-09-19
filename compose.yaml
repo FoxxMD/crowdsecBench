@@ -10,10 +10,19 @@ services:
   traefik:
     image: "traefik:v3.3"
     ports:
-      - "8086:80"
+      - "8086:8080"
     volumes:
-      - './traefik/static:/etc/traefik'
-      - './traefik/dynamic:/config/dynamic'
-      - './log:/var/log/traefik'
+      - ./traefik/static:/etc/traefik
+      - ./traefik/dynamic:/config/dynamic
+      - ./data/traefik-log:/var/log/traefik
   echo:
     image: mendhak/http-https-echo:36
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    environment:
+      COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
+      DISABLE_PARSERS: crowdsecurity/whitelists
+    volumes:
+      - ./crowdsec/acquis.d:/etc/crowdsec/acquis.d
+      - ./data/crowdsec/data:/var/lib/crowdsec/data
+      - ./data/traefik-log:/var/log/traefik
