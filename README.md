@@ -60,3 +60,7 @@ docker compose up traefik echo crowdsec -d
 ```shell
 docker compose up k6
 ```
+
+# Benchmark Results
+
+See the [`bench-results`](/bench-results/) folder for some benchmarks run on my own hardware.
