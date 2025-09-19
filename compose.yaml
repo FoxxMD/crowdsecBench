@@ -7,3 +7,13 @@ services:
       - 'run'
       - '/app/script.ts'
     env_file: '.env'
+  traefik:
+    image: "traefik:v3.3"
+    ports:
+      - "8086:80"
+    volumes:
+      - './traefik/static:/etc/traefik'
+      - './traefik/dynamic:/config/dynamic'
+      - './log:/var/log/traefik'
+  echo:
+    image: mendhak/http-https-echo:36

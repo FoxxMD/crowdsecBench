@@ -1,0 +1,10 @@
+http:
+  routers:
+    echo:
+      rule: "PathPrefix(`/`)"
+      service: echo
+  services:
+    echo:
+      loadBalancer:
+        servers:
+          - url: "http://echo:8080"

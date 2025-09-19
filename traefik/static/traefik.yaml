@@ -1,0 +1,19 @@
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+  format: json
+  bufferingSize: 0
+  fields:
+    headers:
+      defaultMode: drop # drop all headers per default
+      names:
+          User-Agent: keep # log user agent strings
+providers:
+  file:
+    directory: /config/dynamic
+    watch: true
+entryPoints:
+  web:
+    asDefault: true
+    address: :80
+log:
+  level: info
