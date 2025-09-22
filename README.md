@@ -13,7 +13,7 @@ This docker stack can be used to benchmark an out-of-the-box crowdsec installati
   * Randomized path (`RANDOMIZE=true`)
   * Randomized User-Agent
 
-Additionally, the bash script [`bench.sh`](/bench.sh) can be used to orchestrate the load call, monitor the crowdsec process, and create a .png plot of CPU/memory using [`psrecord`](https://github.com/astrofrog/psrecord), if it installed.
+Additionally, the bash script [`bench.sh`](/bench.sh) can be used to orchestrate the load call, monitor the crowdsec process, and create a .png plot of CPU using [`goeffel`](https://github.com/jgehrcke/goeffel), if it installed.
 
 # Usage
 
@@ -30,20 +30,21 @@ Use the sample [`.env.example`](/.env.example) to create an `.env` for your scen
 
 ### Using `bench.sh`
 
-Install [`psrecord`](https://github.com/astrofrog/psrecord), if not present:
+Install latest development [`goeffel`](hhttps://github.com/jgehrcke/goeffel) version:
 
 ```shell
-pipx install psrecord[plot]
+pipx install git+https://github.com/jgehrcke/goeffel
 ```
 
-Run `bench.sh` from the project directory, providing the duration the load will be run:
+Run `bench.sh` from the project directory. It requires `sudo` to collect metrics.
 
 ```shell
-# DURATION=12 from .env then...
-./bench.sh 12
+sudo ./bench.sh
 ```
 
-After the run has finished an image `plot_[unix_timestamp].png` will be generated in the project directory.
+After the run has finished an image `[date]_crowdsec-web-traffic-load-[unix_timestamp].png` will be generated in the project directory.
+
+Additional graphs can be plotted from the generated `hdf5` file using [`goeffel-analysis`](https://github.com/jgehrcke/goeffel?tab=readme-ov-file#goeffel-analysis-data-inspection-and-visualization).
 
 ### Manually
 
