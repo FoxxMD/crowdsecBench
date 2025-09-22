@@ -17,7 +17,7 @@ So, 50 requests/s over a duration of 30 seconds using [`bench.sh`](../bench.sh)
 * [DietPi OS](https://dietpi.com/) (bullseye)
 * Kernel `6.1.21-v8+`
 
-![rpi4 results](plot_pi4.png)
+TBD
 
 ### Raspberry Pi5
 
