@@ -19,10 +19,17 @@ if(typeof target === 'string') {
 
 // Test configuration
 export const options = {
-  // Ramp the number of virtual users up and down
-  stages: [
-    { duration, target }
-  ],
+  discardResponseBodies: true,
+  scenarios: {
+    constant: {
+      executor: 'constant-arrival-rate',
+      duration,
+      preAllocatedVUs: Math.max(2, target/2),
+      rate: target,
+      maxVUs: target,
+      timeUnit: '1s'
+    }
+  }
 };
 
 const URL = __ENV.URL;
@@ -36,12 +43,9 @@ export default function () {
     const path = Array.from({length: randomIntBetween(1,4)}, (_, i) => randomString(randomIntBetween(2,10))).join('/');
     u = `${u}/${path}`;
   }
-  let res = http.get(u, {
+  http.get(u, {
     headers: {
       'User-Agent': generateRandomUserAgent()
     }
   });
-  // Validate response status
-  check(res, { "status was 200": (r) => r.status == 200 });
-  sleep(1);
 }

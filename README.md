@@ -21,7 +21,7 @@ Additionally, the bash script [`bench.sh`](/bench.sh) can be used to orchestrate
 
 Use the sample [`.env.example`](/.env.example) to create an `.env` for your scenario.
 
-* `TARGET` = number of concurrent requests to make
+* `TARGET` = number of concurrent requests to make per second
 * `DURATION` = number of seconds to run load
 * `RANDOMIZE` = randomize url path
 * `URL` = leave as default unless modifying this project for your own use
