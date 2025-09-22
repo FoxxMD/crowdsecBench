@@ -1,8 +1,11 @@
 #!/bin/bash
 
-if ! command -v goeffel >/dev/null 2>&1
+CMD=${1:-goeffel}
+CMD_ANALYSIS="${CMD}-analysis"
+
+if ! command -v $CMD >/dev/null 2>&1
 then
-    echo "goeffel could not be found, please make sure it is installed and this shell can access it."
+    echo "$CMD could not be found, please make sure it is installed and this shell can access it."
     exit 1
 fi
 
@@ -37,7 +40,7 @@ printf 'Crowdsec started! Waiting a few seconds for CPU to settle...\n'
 sleep 2
 
 printf 'Starting goeffel capture of crowdsec PID %s \n' "$CS_PID"
-goeffel --pid $CS_PID --no-system-metrics --label crowdsec &
+$CMD --pid $CS_PID --no-system-metrics --label crowdsec &
 G_PID=$!
 
 printf 'Starting k6\n'
@@ -61,7 +64,7 @@ timestamp=$(date +%s)
 
 printf 'Generating plot for %s\n' "$DATA"
 
-sudo -u $real_user goeffel-analysis flexplot \
+sudo -u $real_user $CMD_ANALYSIS flexplot \
 --series $DATA host \
 --column proc_cpu_util_percent_total \
 'CPU util (total) / %' \
