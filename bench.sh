@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if ! command -v goeffel >/dev/null 2>&1
+then
+    echo "goeffel could not be found, please make sure it is installed and this shell can access it."
+    exit 1
+fi
+
 ## https://askubuntu.com/a/970898
 if ! [ $(id -u) = 0 ]; then
    echo "The script need to be run as root." >&2
