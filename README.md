@@ -33,7 +33,7 @@ Use the sample [`.env.example`](/.env.example) to create an `.env` for your scen
 Install latest development [`goeffel`](hhttps://github.com/jgehrcke/goeffel) version:
 
 ```shell
-pipx install git+https://github.com/jgehrcke/goeffel
+pipx install git+https://github.com/foxxmd/goeffel@flexplotStyling
 ```
 
 Run `bench.sh` from the project directory. It requires `sudo` to collect metrics.
