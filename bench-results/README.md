@@ -17,7 +17,7 @@ So, 50 requests/s over a duration of 30 seconds using [`bench.sh`](../bench.sh)
 * [DietPi OS](https://dietpi.com/) (bullseye)
 * Kernel `6.1.21-v8+`
 
-TBD
+![rpi4 results](plot_pi4.png)
 
 ### Raspberry Pi5
 
@@ -26,13 +26,20 @@ TBD
 
 ![rpi5 results](plot_pi5.png)
 
+### i5-6500T
+
+* Debian (bookworm)
+* Kernel `6.1.0-38-amd64`
+
+![i5-6500t results](plot_6500t.png)
+
 ### i5-13400
 
 * Debian (bookworm)
 * Kernel `6.1.0-38-amd64`
 * 10core VM on Promxox
   
-![it-13400 results](plot_13400.png)
+![i5-13400 results](plot_13400.png)
 
 ### 5700x
 
