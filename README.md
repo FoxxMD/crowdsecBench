@@ -42,6 +42,14 @@ Run `bench.sh` from the project directory. It requires `sudo` to collect metrics
 sudo ./bench.sh
 ```
 
+If the script reports that `goeffel` can not be found you can specify the location of the binary as an argument:
+
+```shell
+$ which goeffel
+/home/myUser/.local/bin/goeffel
+$ sudo ./bench.sh /home/myUser/.local/bin/goeffel
+```
+
 After the run has finished an image `[date]_crowdsec-web-traffic-load-[unix_timestamp].png` will be generated in the project directory.
 
 Additional graphs can be plotted from the generated `hdf5` file using [`goeffel-analysis`](https://github.com/jgehrcke/goeffel?tab=readme-ov-file#goeffel-analysis-data-inspection-and-visualization).
