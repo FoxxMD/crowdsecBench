@@ -19,6 +19,8 @@ services:
     image: mendhak/http-https-echo:36
   crowdsec:
     image: crowdsecurity/crowdsec:latest
+    depends_on:
+      - traefik
     environment:
       COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
       DISABLE_PARSERS: crowdsecurity/whitelists
@@ -26,3 +28,16 @@ services:
       - ./crowdsec/acquis.d:/etc/crowdsec/acquis.d
       - ./data/crowdsec/data:/var/lib/crowdsec/data
       - ./data/traefik-log:/var/log/traefik
+  goeffel:
+    image: foxxmd/goeffel:edge
+    # required for goeffel to share PID address space with host
+    pid: host
+    # required for goeffel to have permission to access PIDs
+    cap_add:
+      - CAP_SYS_PTRACE
+    volumes:
+      - "./data/goeffel:/app"
+    # you want to override this
+    command:
+      - 'goeffel'
+      - '-h'

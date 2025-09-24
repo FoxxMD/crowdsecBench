@@ -12,8 +12,9 @@ This docker stack can be used to benchmark an out-of-the-box crowdsec installati
   * Configured to generate concurrent requests and duration of load using ENVs
   * Randomized path (`RANDOMIZE=true`)
   * Randomized User-Agent
+* forked [goeffel](https://github.com/FoxxMD/goeffel) for capturing process activity
 
-Additionally, the bash script [`bench.sh`](/bench.sh) can be used to orchestrate the load call, monitor the crowdsec process, and create a .png plot of CPU using [`goeffel`](https://github.com/jgehrcke/goeffel), if it installed.
+Additionally, the bash script [`bench.sh`](/bench.sh) can be used to orchestrate the load call, monitor the crowdsec process, and create a .png plot of CPU using [`goeffel`](https://github.com/jgehrcke/goeffel).
 
 # Usage
 
@@ -30,27 +31,11 @@ Use the sample [`.env.example`](/.env.example) to create an `.env` for your scen
 
 ### Using `bench.sh`
 
-Install latest development [`goeffel`](hhttps://github.com/jgehrcke/goeffel) version:
-
 ```shell
-pipx install git+https://github.com/foxxmd/goeffel@flexplotStyling
+./bench.sh
 ```
 
-Run `bench.sh` from the project directory. It requires `sudo` to collect metrics.
-
-```shell
-sudo ./bench.sh
-```
-
-If the script reports that `goeffel` can not be found you can specify the location of the binary as an argument:
-
-```shell
-$ which goeffel
-/home/myUser/.local/bin/goeffel
-$ sudo ./bench.sh /home/myUser/.local/bin/goeffel
-```
-
-After the run has finished an image `[date]_crowdsec-web-traffic-load-[unix_timestamp].png` will be generated in the project directory.
+After the run has finished an image `[date]_crowdsec-web-traffic-load-[unix_timestamp].png` will be generated in `./data/goeffel` directory.
 
 Additional graphs can be plotted from the generated `hdf5` file using [`goeffel-analysis`](https://github.com/jgehrcke/goeffel?tab=readme-ov-file#goeffel-analysis-data-inspection-and-visualization).
 
@@ -63,6 +48,12 @@ docker compose up traefik echo crowdsec -d
 ```
 
 2. Start any monitoring/profiling software for crowdsec
+
+Using the goeffel container EX:
+
+```shell
+docker compose run --rm --no-TTY goeffel goeffel --pid MY_COOL_PROGRAM_PID
+```
 
 3. Run load
 
