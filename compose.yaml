@@ -6,7 +6,9 @@ services:
     command:
       - 'run'
       - '/app/script.ts'
-    env_file: '.env'
+    env_file:
+      - path: ./.env
+        required: false
   traefik:
     image: "traefik:v3.3"
     # ports:

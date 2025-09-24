@@ -16,20 +16,11 @@ This docker stack can be used to benchmark an out-of-the-box crowdsec installati
 
 Additionally, the bash script [`bench.sh`](/bench.sh) can be used to orchestrate the load call, monitor the crowdsec process, and create a .png plot of CPU using [`goeffel`](https://github.com/jgehrcke/goeffel).
 
-# Usage
+## Usage
 
-## Create .env
+### Run Load
 
-Use the sample [`.env.example`](/.env.example) to create an `.env` for your scenario.
-
-* `TARGET` = number of concurrent requests to make per second
-* `DURATION` = number of seconds to run load
-* `RANDOMIZE` = randomize url path
-* `URL` = leave as default unless modifying this project for your own use
-
-## Run Load
-
-### Using `bench.sh`
+#### Using `bench.sh`
 
 ```shell
 ./bench.sh
@@ -39,7 +30,7 @@ After the run has finished an image `[date]_crowdsec-web-traffic-load-[unix_time
 
 Additional graphs can be plotted from the generated `hdf5` file using [`goeffel-analysis`](https://github.com/jgehrcke/goeffel?tab=readme-ov-file#goeffel-analysis-data-inspection-and-visualization).
 
-### Manually
+#### Manually
 
 1. Start docker services required to run the load
 
@@ -61,6 +52,14 @@ docker compose run --rm --no-TTY goeffel goeffel --pid MY_COOL_PROGRAM_PID
 docker compose up k6
 ```
 
-# Benchmark Results
+### (Optional) Customize Load with .env
+
+Use the sample [`.env.example`](/.env.example) to create an `.env` for your scenario.
+
+* `TARGET` = number of concurrent requests to make per second
+* `DURATION` = number of seconds to run load (the `s` at the end is important)
+* `RANDOMIZE` = randomize url path -- `true` or `false`
+
+## Benchmark Results
 
 See the [`bench-results`](/bench-results/) folder for some benchmarks run on my own hardware.

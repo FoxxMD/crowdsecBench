@@ -12,7 +12,7 @@ from 'https://jslib.k6.io/k6-utils/1.4.0/index.js';
 import {generateRandomUserAgent} from './utils/agent.ts';
 
 const duration = __ENV.DURATION ?? '30s';
-let target = __ENV.TARGET ?? 2;
+let target = __ENV.TARGET ?? 50;
 if(typeof target === 'string') {
   target = parseInt(target);
 }
@@ -32,7 +32,7 @@ export const options = {
   }
 };
 
-const URL = __ENV.URL;
+const URL = __ENV.URL ?? 'http://traefik';
 
 const randomizeUrl = __ENV.RANDOMIZE === 'true';
 

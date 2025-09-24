@@ -2,6 +2,16 @@
 
 trap 'exit 0;' SIGHUP SIGINT
 
+TARGET='50'
+DURATION='30s'
+
+if test -f ".env"; then
+    printf 'Found .env\n'
+    export $(cat .env | xargs)
+fi
+
+printf 'RUN => %s concurrent requests over %s\n' "$TARGET" "$DURATION"
+
 printf 'Starting traefik and echo...\n'
 docker compose up traefik echo -d
 
@@ -21,7 +31,7 @@ sleep 2
 printf 'Starting goeffel capture of crowdsec PID %s \n' "$CS_PID"
 docker compose run --rm --no-TTY goeffel goeffel --pid $CS_PID &
 
-printf 'Starting k6\n'
+printf 'Starting k6, will run for %s\n' "$DURATION"
 docker compose up k6 -d
 
 docker compose wait k6
@@ -44,7 +54,7 @@ docker compose run --rm --no-TTY goeffel goeffel-analysis flexplot \
 --column proc_cpu_util_percent_total \
 'CPU util (total) / %' \
 "Crowdsec Web Traffic Load $timestamp" 5 \
---subtitle '50 concurrent requests, measured with Goeffel' \
+--subtitle "$TARGET concurrent requests, measured with Goeffel" \
 --legend-loc 'upper right' \
 --mean-style solid \
 --custom-y-limit 0 100
