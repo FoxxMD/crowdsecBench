@@ -2,7 +2,7 @@ services:
   k6:
     image: grafana/k6
     volumes:
-      - $PWD:/app
+      - ./src/k6/:/app
     command:
       - 'run'
       - '/app/script.ts'
@@ -12,8 +12,8 @@ services:
     # ports:
     #   - "8086:8080"
     volumes:
-      - ./traefik/static:/etc/traefik
-      - ./traefik/dynamic:/config/dynamic
+      - ./docker/traefik/static:/etc/traefik
+      - ./docker/traefik/dynamic:/config/dynamic
       - ./data/traefik-log:/var/log/traefik
   echo:
     image: mendhak/http-https-echo:36
@@ -25,7 +25,7 @@ services:
       COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
       DISABLE_PARSERS: crowdsecurity/whitelists
     volumes:
-      - ./crowdsec/acquis.d:/etc/crowdsec/acquis.d
+      - ./docker/crowdsec/acquis.d:/etc/crowdsec/acquis.d
       - ./data/crowdsec/data:/var/lib/crowdsec/data
       - ./data/traefik-log:/var/log/traefik
   goeffel:
